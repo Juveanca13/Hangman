@@ -14,12 +14,15 @@ This is an implementation of the Hangman game, where the computer thinks of a wo
 
 ## Description
 
-Explain what your project does, its aim, and what you have learned from it.
+The "Hangman" is a simple Python console game where the user is prompted to guess a letter, and the program checks if the guessed letter is in a randomly chosen secret word. The aim of the project is to demonstrate basic Python programming concepts such as loops, functions, and input validation.
 
 ## Installation
 
-Provide instructions on how to install your project. Include any dependencies that need to be installed and any other setup steps.
+To run the game, follow these steps:
 
-```bash
-# Example installation steps
-pip install some-library
+1. Clone the repository to your local machine:
+
+   ```bash
+   git clone https://github.com/Juveanca13/hangman498.git
+
+
