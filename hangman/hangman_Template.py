@@ -98,7 +98,7 @@ def play_game(word_list):
         print(f"You lost! The word was {game.word}")
 
 if __name__ == '__main__':
-    word_list = ['apple', 'banana', 'orange', 'pear', 'strawberry', 'watermelon']
+    word_list = ['apple', 'banana', 'orange', 'grapes', 'mango']
     play_game(word_list)
 
 # %%
