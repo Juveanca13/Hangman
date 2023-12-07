@@ -25,18 +25,31 @@ To run the game, follow these steps:
    ```bash
    git clone https://github.com/Juveanca13/hangman498.git
 
+2. Navigate to the project directory:
+   ```bash
+   cd hangman-game
+
+3. Run the game:
+   ```bash
+   python hangman.py
+
+
 ## Usage
-Enter a single letter when prompted.
-The program will inform you whether the letter is in the word or not.
-Keep guessing until you find the correct letters to complete the word.
+1. Upon running the game, you will be prompted to guess a letter.
+2. Enter a single character as your guess.
+3. The game will display the current state of the word with underscores for unguessed letters.
+4. Continue guessing until you either complete the word or run out of lives.
+
 
 ## File structure
-hangman/
-|   milestone_2.py
-|   milestone_3.py
-│   milestone_4.py
-|   milestone_5.py
-│   README.md
+The project has the following structure:
+
+`hangman.py`: The main Python script containing the Hangman class and game logic.
+
+`gitcore`
+
+`README.md`: Documentation file.
+
 
 ## License 
 
