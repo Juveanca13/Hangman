@@ -43,57 +43,62 @@ class Hangman:
     def __init__(self, word_list, num_lives=5):
         self.word_list = word_list
         self.num_lives = num_lives
-        self.list_of_guesses = []
+        self.list_letters = []
         self._choose_word()
-        pass
 
-    def check_letter(self, letter) -> None:
-        '''
-        Checks if the letter is in the word.
-        If it is, it replaces the '_' in the word_guessed list with the letter.
-        If it is not, it reduces the number of lives by 1.
+    def _choose_word(self):
+        self.word = random.choice(self.word_list)
+        self.word_guessed = ['_'] * len(self.word)
+        self.num_letters = len(set(self.word))
 
-        Parameters:
-        ----------
-        letter: str
-            The letter to be checked
+    def check_letter(self, letter):
+        letter = letter.lower()  # Convert the letter to lowercase
+        if letter in self.word:
+            # TODO 3: If the letter is in the word, replace the '_' in the word_guessed list with the letter
+            # TODO 3: If the letter is in the word, reduce the number of UNIQUE letters in the word that have not been guessed yet by 1
+            indices = [i for i, char in enumerate(self.word) if char == letter]
+            for index in indices:
+                self.word_guessed[index] = letter
+                self.num_letters -= 1
+        else:
+            # TODO 3: If the letter is not in the word, reduce the number of lives by 1
+            self.num_lives -= 1
 
-        '''
-        # TODO 3: Check if the letter is in the word. TIP: You can use the lower() method to convert the letter to lowercase
-        # TODO 3: If the letter is in the word, replace the '_' in the word_guessed list with the letter
-        # TODO 3: If the letter is in the word, the number of UNIQUE letters in the word that have not been guessed yet has to be reduced by 1
-        # TODO 3: If the letter is not in the word, reduce the number of lives by 1
-        # Be careful! A letter can contain the same letter more than once. TIP: Take a look at the index() method in the string class
-        pass
+        # TODO 3: Add the letter to the list_letters attribute
+        self.list_letters.append(letter)
 
     def ask_letter(self):
-        '''
-        Asks the user for a letter and checks two things:
-        1. If the letter has already been tried
-        2. If the character is a single character
-        If it passes both checks, it calls the check_letter method.
-        '''
-        # TODO 1: Ask the user for a letter iteratively until the user enters a valid letter
-        # TODO 1: Assign the letter to a variable called `letter`
-        # TODO 1: The letter has to comply with the following criteria: It has to be a single character. If it is not, print "Please, enter just one character"
-        # TODO 2. It has to be a letter that has not been tried yet. Use the list_letters attribute to check this. If it has been tried, print "{letter} was already tried".
-        # TODO 3: If the letter is valid, call the check_letter method
-        pass
+        while True:
+            # TODO 1: Ask the user for a letter iteratively until the user enters a valid letter
+            letter = input("Guess a letter: ")
+            # TODO 1: The letter has to comply with the following criteria: It has to be a single character. If it is not, print "Please, enter just one character"
+            if not letter.isalpha() or len(letter) != 1:
+                print("Please, enter just one character")
+                continue
+            # TODO 2: It has to be a letter that has not been tried yet. If it has been tried, print "{letter} was already tried".
+            if letter.lower() in self.list_letters:
+                print(f"{letter} was already tried")
+                continue
+            # TODO 3: If the letter is valid, call the check_letter method
+            self.check_letter(letter)
+            break
 
 def play_game(word_list):
-    # As an aid, part of the code is already provided:
     game = Hangman(word_list, num_lives=5)
-    # TODO 1: To test this task, you can call the ask_letter method
-    # TODO 2: To test this task, upon initialization, two messages should be printed 
-    # TODO 3: To test this task, you call the ask_letter method and check if the letter is in the word
+    print("Welcome to Hangman!")
+    print("Word to guess: ", ' '.join(game.word_guessed))
     
-    # TODO 4: Iteratively ask the user for a letter until the user guesses the word or runs out of lives
-    # If the user guesses the word, print "Congratulations! You won!"
-    # If the user runs out of lives, print "You lost! The word was {word}"
+    while game.num_lives > 0 and game.num_letters > 0:
+        game.ask_letter()
+        print("Word to guess: ", ' '.join(game.word_guessed))
 
-    pass
+    if game.num_letters == 0:
+        print("Congratulations! You won!")
+    else:
+        print(f"You lost! The word was {game.word}")
 
 if __name__ == '__main__':
     word_list = ['apple', 'banana', 'orange', 'pear', 'strawberry', 'watermelon']
     play_game(word_list)
+
 # %%
