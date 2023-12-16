@@ -9,21 +9,21 @@ class Hangman:
             word_list (list): A list of words to choose from.
             num_lives (int): The number of lives the player has at the start of the game (default is 5).
         """
-        self._word_list = word_list
-        self._num_lives = num_lives
-        self._word = self._choose_word()
-        self._word_guessed = ['_'] * len(self._word)
-        self._num_unique_letters = len(set(self._word))
-        self._list_of_guesses = []
+        self.word_list = word_list
+        self.num_lives = num_lives
+        self.word = self._choose_word()
+        self.word_guessed = ['_'] * len(self.word)
+        self.num_unique_letters = len(set(self.word))
+        self.list_of_guesses = []
 
     def _choose_word(self):
         """
         Choose a random word from the word_list.
-        
+
         Returns:
             str: The chosen word.
         """
-        return random.choice(self._word_list)
+        return random.choice(self.word_list)
 
     def _update_word_guessed(self, guess):
         """
@@ -32,10 +32,10 @@ class Hangman:
         Args:
             guess (str): The guessed letter.
         """
-        for i, letter in enumerate(self._word):
+        for i, letter in enumerate(self.word):
             if letter == guess:
-                self._word_guessed[i] = guess
-                self._num_unique_letters -= 1
+                self.word_guessed[i] = guess
+                self.num_unique_letters -= 1
 
     def _handle_incorrect_guess(self, guess):
         """
@@ -44,9 +44,9 @@ class Hangman:
         Args:
             guess (str): The guessed letter.
         """
-        self._num_lives -= 1
+        self.num_lives -= 1
         print(f"Sorry, {guess} is not in the word.")
-        print(f"You have {self._num_lives} lives left.")
+        print(f"You have {self.num_lives} lives left.")
 
     def check_guess(self, guess):
         """
@@ -56,7 +56,7 @@ class Hangman:
             guess (str): The guessed letter.
         """
         guess = guess.lower()
-        if guess in self._word:
+        if guess in self.word:
             print(f"Good guess! {guess} is in the word.")
             self._update_word_guessed(guess)
         else:
@@ -71,11 +71,11 @@ class Hangman:
 
             if not guess.isalpha() or len(guess) != 1:
                 print("Invalid letter. Please, enter a single alphabetical character.")
-            elif guess in self._list_of_guesses:
+            elif guess in self.list_of_guesses:
                 print("You already tried that letter!")
             else:
                 self.check_guess(guess)
-                self._list_of_guesses.append(guess)
+                self.list_of_guesses.append(guess)
                 break
 
     def play_game(self):
@@ -83,15 +83,17 @@ class Hangman:
         Play the Hangman game.
         """
         while True:
-            if self._num_lives == 0:
+            if self.num_lives == 0:
                 print("You lost!")
                 break
-            elif self._num_unique_letters > 0:
+            elif self.num_unique_letters > 0:
                 self.ask_for_input()
             else:
                 print("Congratulations. You won the game!")
                 break
 
-# Testing the updated Hangman class methods
-hangman_game = Hangman(word_list=["apple", "banana", "orange", "grapes", "mango"])
-hangman_game.play_game()
+if __name__ == "__main__":
+    # Testing the updated Hangman class methods
+    hangman_game = Hangman(word_list=["apple", "banana", "orange", "grapes", "mango"])
+    hangman_game.play_game()
+
